@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking 900 in Disc Golf — Score Better Without Throwing a Mile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f1eb;
+            --text: #2a2a2a;
+            --accent: #4a6741;
+            --accent-light: #6b8c62;
+            --warm: #8b7355;
+            --card-bg: #ffffff;
+            --subtle: #e8e2d8;
+            --light-text: #6b6560;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(74,103,65,0.06) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 30%, rgba(139,115,85,0.05) 0%, transparent 50%);
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-book {
+            flex-shrink: 0;
+            width: 320px;
+            perspective: 1000px;
+        }
+
+        .hero-book img {
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+            transform: rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-book img:hover {
+            transform: rotateY(0deg);
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--warm);
+            margin-bottom: 32px;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.15rem;
+            color: var(--light-text);
+            max-width: 480px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(74,103,65,0.25);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 2px solid var(--subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--warm);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        /* Pull quote */
+        .pull-quote {
+            text-align: center;
+            padding: 80px 24px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--subtle);
+            border-bottom: 1px solid var(--subtle);
+        }
+
+        .pull-quote blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--accent);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Sections */
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            color: var(--light-text);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* About section */
+        .about-text {
+            font-size: 1.1rem;
+            max-width: 680px;
+            color: var(--light-text);
+        }
+
+        .about-text p {
+            margin-bottom: 16px;
+        }
+
+        .about-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* Recommended reads */
+        .reads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .read-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 28px;
+            border: 1px solid var(--subtle);
+            transition: all 0.3s ease;
+        }
+
+        .read-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+
+        .read-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .read-card p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .read-card a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .read-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* App section */
+        .app-section {
+            background: var(--card-bg);
+            border-top: 1px solid var(--subtle);
+            border-bottom: 1px solid var(--subtle);
+        }
+
+        .app-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .app-content {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 2.5rem;
+        }
+
+        .app-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .app-text p {
+            color: var(--light-text);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            max-width: 520px;
+        }
+
+        .app-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .app-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--text);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .app-link:hover {
+            background: var(--accent);
+        }
+
+        .app-link.disabled {
+            background: #ccc;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-badge:hover {
+            opacity: 0.8;
+        }
+
+        .app-badge img {
+            height: 44px;
+        }
+
+        .app-badge.coming-soon {
+            opacity: 0.4;
+            cursor: default;
+            position: relative;
+        }
+
+        .app-badge.coming-soon::after {
+            content: 'Coming Soon';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--light-text);
+            white-space: nowrap;
+        }
+
+        .google-coming-soon {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: #e0ddd7;
+            color: var(--light-text);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Community / Contact */
+        .community {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .community .section-title {
+            margin-bottom: 16px;
+        }
+
+        .community p {
+            color: var(--light-text);
+            font-size: 1.05rem;
+            max-width: 560px;
+            margin: 0 auto 36px;
+        }
+
+        .community-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .community-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--subtle);
+            color: var(--text);
+            background: var(--card-bg);
+        }
+
+        .community-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--subtle);
+        }
+
+        footer a {
+            color: var(--warm);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-inner {
+                flex-direction: column;
+                gap: 48px;
+                text-align: center;
+            }
+
+            .hero-book { width: 240px; }
+
+            .hero-book img { transform: none; }
+
+            .hero-text h1 { font-size: 2.4rem; }
+
+            .hero-text .tagline { margin-left: auto; margin-right: auto; }
+
+            .btn-group { justify-content: center; }
+
+            .pull-quote blockquote { font-size: 1.4rem; }
+
+            .app-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .app-links { justify-content: center; }
+
+            .reads-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-book">
+                <img src="cover.png" alt="Breaking 900 in Disc Golf book cover">
+            </div>
+            <div class="hero-text">
+                <h1>Breaking 900<br>in Disc Golf</h1>
+                <div class="subtitle">Score Better Without Throwing a Mile</div>
+                <p class="tagline">A strategy guide for competitive amateurs who want to shave 5–10 strokes per round — not by throwing farther, but by making smarter decisions with the skills they already have.</p>
+                <div class="btn-group">
+                    <a href="https://a.co/d/0j3GLSL5" class="btn btn-primary">Get the Kindle Edition</a>
+                    <a href="https://a.co/d/0j3GLSL5" class="btn btn-secondary">Get the Paperback</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pull Quote -->
+    <section class="pull-quote">
+        <blockquote>"Lock in the pars and everything changes."</blockquote>
+    </section>
+
+    <!-- About -->
+    <section class="section">
+        <h2 class="section-title">What This Book Is About</h2>
+        <div class="about-text">
+            <p>The gap between 800 and 900 is only 5–10 strokes per round — and almost none of them come from your drive. They come from the 15-footer you missed, the approach that left you 40 feet out instead of 15, and the blow-up hole where one bad decision turned a bogey into a triple.</p>
+            <p>This book shows you where those strokes are hiding and how to eliminate them. You'll learn a simple decision-making framework for choosing the right shot under pressure, why aiming for a 30-foot circle changes everything about your approach game, and why the players who win tournaments aren't throwing farthest — they're making the fewest mistakes.</p>
+            <p><strong>Marcus Erickson</strong> has played over 270 PDGA tournaments and won more than 70 of them — not with a big arm, but by learning to play smarter. The book targets breaking 900, but the principles work at every level.</p>
+        </div>
+    </section>
+
+    <!-- Recommended Reads -->
+    <section class="section" style="padding-top: 0;">
+        <h2 class="section-title">Recommended Reads</h2>
+        <p class="section-subtitle">Other books that can help your disc golf game.</p>
+        <div class="reads-grid">
+            <div class="read-card">
+                <h3>Book Title Here</h3>
+                <p>Short description of why this book is worth reading for disc golfers.</p>
+                <a href="#">View on Amazon →</a>
+            </div>
+            <div class="read-card">
+                <h3>Book Title Here</h3>
+                <p>Short description of why this book is worth reading for disc golfers.</p>
+                <a href="#">View on Amazon →</a>
+            </div>
+            <div class="read-card">
+                <h3>Book Title Here</h3>
+                <p>Short description of why this book is worth reading for disc golfers.</p>
+                <a href="#">View on Amazon →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disc Golf Connect App -->
+    <section class="app-section">
+        <div class="app-inner">
+            <div class="app-content">
+                <div class="app-icon">🥏</div>
+                <div class="app-text">
+                    <h2>Disc Golf Connect</h2>
+                    <p>Looking for someone to play a round with? Disc Golf Connect is a mobile app that helps disc golfers find people to play with in their area. Because the best rounds are the ones with good company.</p>
+                    <div class="app-links">
+                        <a href="https://apps.apple.com/us/app/disc-golf-connect/id6757173639" class="app-badge">
+                            <img src="appleappstore.svg" alt="Download on the App Store" height="44">
+                        </a>
+                        <span class="app-badge coming-soon" title="Coming Soon">
+                            <img src="googlebadge.png" alt="Get it on Google Play" height="44">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community & Contact -->
+    <section class="community">
+        <h2 class="section-title">Join the Community</h2>
+        <p>Share your progress, swap tips, and connect with other players working on smarter golf.</p>
+        <div class="community-links">
+            <a href="https://www.facebook.com/groups/breaking900discgolf" class="community-link">
+                <span>📘</span> Breaking 900 Facebook Group
+            </a>
+            <a href="mailto:marcuserickson@gmail.com" class="community-link">
+                <span>✉️</span> Send Me an Email
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Marcus Erickson. <em>Breaking 900 in Disc Golf</em> — <a href="https://a.co/d/0j3GLSL5">Available on Amazon</a></p>
+    </footer>
+
+</body>
+</html>
